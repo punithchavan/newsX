@@ -18,7 +18,7 @@ const userSchema = new Schema({
         trim: true,
     },
     fullName: {
-        type: String,
+        type: String,  
         required: true,
         trim: true,
         index: true,
