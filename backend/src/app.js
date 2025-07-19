@@ -22,4 +22,11 @@ app.use(express.static("public"));
 
 app.use(cookieParser());
 
+//import routes
+import newsRoutes from "./routes/news.routes.js";
+
+
+//routes declaration
+app.use("/api/v1/news", newsRoutes);
+
 export { app }

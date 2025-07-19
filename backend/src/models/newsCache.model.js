@@ -12,7 +12,7 @@ const newsCacheSchema = new Schema({
     title: String,
     description: String,
     url: String,
-    imageUrl: String,
+    imageUrl: String, 
     source: String,
     publishedAt: Date,
     extra: Schema.Types.Mixed,
