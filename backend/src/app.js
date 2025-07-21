@@ -24,9 +24,11 @@ app.use(cookieParser());
 
 //import routes
 import newsRoutes from "./routes/news.routes.js";
+import searchRoutes from "./routes/search.routes.js";
 
 
 //routes declaration
 app.use("/api/v1/news", newsRoutes);
+app.use("/api/v1/search", searchRoutes);
 
 export { app }

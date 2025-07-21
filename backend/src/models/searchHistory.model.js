@@ -1,5 +1,4 @@
-import { timeStamp } from "console";
-import mongoose from "mongoose";
+import mongoose, {Schema} from "mongoose";
 
 const searchHistorySchema = new Schema({
     user: {
