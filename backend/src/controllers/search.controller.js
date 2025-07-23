@@ -46,10 +46,14 @@ const searchUser = asyncHandler(async (req,res) =>{
     if(!username || username.trim().length === 0){
         throw new ApiError(400, "Username is required");
     }
+
+    const page = Number(req.query.page) || 1;
+    const limit = 10;
+
     const users = await User.find({
         username: { $regex: username, $options: "i"},
         _id: { $ne: req.user._id}
-    }).select("username name profileImage");
+    }).select("username name profileImage").skip((page-1)*limit).limit(limit);
 
     return res
     .status(200)

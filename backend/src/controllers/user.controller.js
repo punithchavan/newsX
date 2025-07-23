@@ -108,6 +108,11 @@ const completeUserProfile = asyncHandler(async (req, res) => {
   const user = await User.findById(userId);
   if (!user) throw new ApiError(404, "User not found");
 
+  const existingUserName = await User.findOne({username});
+  if(existingUserName){
+    throw new ApiError(400, "Username already taken");
+  }
+
   const profilePictureLocalPath = req.files?.profilePicture?.[0]?.path;
   if (!profilePictureLocalPath) {
     throw new ApiError(400, "profilePicture is missing");

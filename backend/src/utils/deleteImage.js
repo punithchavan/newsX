@@ -1,7 +1,7 @@
 import {v2 as cloudinary} from "cloudinary";
 import fs from "fs";
 import path from "path";
-import ApiError from "./ApiError.js";
+import {ApiError} from "./ApiError.js";
 
 
 

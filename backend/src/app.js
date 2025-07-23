@@ -25,10 +25,14 @@ app.use(cookieParser());
 //import routes
 import newsRoutes from "./routes/news.routes.js";
 import searchRoutes from "./routes/search.routes.js";
+import tweetRoutes from "./routes/tweet.routes.js";
+import userRoutes from "./routes/user.routes.js";
 
 
 //routes declaration
 app.use("/api/v1/news", newsRoutes);
 app.use("/api/v1/search", searchRoutes);
+app.use("api/v1/tweets", tweetRoutes);
+app.use("api/v1/users", userRoutes);
 
 export { app }
