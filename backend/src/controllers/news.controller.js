@@ -5,6 +5,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { Tweet } from "../models/tweet.model.js";
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
 
+//core functionality
 const getNewsByHashtag = async (req,res) => {
     const { hashtag } = req.params;
     if(!hashtag){
