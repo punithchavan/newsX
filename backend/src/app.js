@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 const app = express();
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: "http://localhost:5173" ,
     credentials: true,
 }))
 
@@ -34,8 +34,8 @@ import likeRoutes from "./routes/like.routes.js";
 //routes declaration
 app.use("/api/v1/news", newsRoutes);
 app.use("/api/v1/search", searchRoutes);
-app.use("api/v1/tweets", tweetRoutes);
-app.use("api/v1/users", userRoutes);
+app.use("/api/v1/tweets", tweetRoutes);
+app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/comments", commentRoutes);
 app.use("/api/v1/likes", likeRoutes);
 

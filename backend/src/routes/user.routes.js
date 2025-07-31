@@ -22,14 +22,18 @@ router.post("/verify-email", verifyEmail);
 router.post("/login", loginUser);
 router.post("/refresh-token", refreshAccessToken);
 
-//protected routes
-router.use(verifyJWT);
 
-router.post("/complete-profile", upload.fields([{ name: "profilePicture", maxCount: 1}]), completeUserProfile);
-router.post("/logout", logoutUser);
-router.get("/me", getCurrentUser);
-router.post("/change-password", changeCurrentPassword);
-router.put("/update", updateAccountDetails);
-router.put("/update-profile-picture", upload.single("profilePicture"), updateProfilePicture);
+router.get("/test", (req, res) => {
+  res.json({ working: true });
+});
+
+
+//protected routes
+router.post("/complete-profile", verifyJWT, upload.fields([{ name: "profilePicture", maxCount: 1}]), completeUserProfile);
+router.post("/logout", verifyJWT, logoutUser);
+router.get("/me", verifyJWT, getCurrentUser);
+router.post("/change-password", verifyJWT, changeCurrentPassword);
+router.put("/update", verifyJWT, updateAccountDetails);
+router.put("/update-profile-picture", verifyJWT, upload.single("profilePicture"), updateProfilePicture);
 
 export default router;

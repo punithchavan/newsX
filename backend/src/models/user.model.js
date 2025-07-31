@@ -5,11 +5,11 @@ import bcrypt from "bcrypt";
 const userSchema = new Schema({
     username: {
         type: String,
-        required: true,
         unique: true,
+        sparse: true,
         lowercase: true,
         trim: true,
-        index: true,
+        default: null,
     },
     email: {
         type: String,
@@ -33,7 +33,7 @@ const userSchema = new Schema({
     },
     password: {
         type: String,
-        required: [true, "Password is required"]
+        required: false,
     },
     DOB: {
         type: Date,

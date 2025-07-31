@@ -30,7 +30,10 @@ const sendVerificationEmail = async (email, token) => {
     console.log("Verification email sent: ", info.messageId);
 
     } catch (error){
-        console.log("Error sending email: ", error);
+        console.error("🔴 Nodemailer error details:");
+        console.error("Message:", error.message);
+        console.error("Response:", error.response);
+        console.error("Stack:", error.stack);
         throw new Error("Email could not be sent");
     }
 };

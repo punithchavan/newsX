@@ -9,6 +9,9 @@ cloudinary.config({
 });
 
 const uploadOnCloudinary = async (localFilePath) => {
+
+    console.log("Cloudinary config:", cloudinary.config());
+    console.log("Uploading to Cloudinary: ", localFilePath);
     try{
         if(!localFilePath) return null;
         const response = await cloudinary.uploader.upload(localFilePath, {
