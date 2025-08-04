@@ -42,7 +42,8 @@ const CompleteProfilePage = () =>{
         data.append("profilePicture", formData.profilePicture);
 
         try {
-            await completeProfile(data);
+            const response = await completeProfile(data);
+            //console.log("✅ Backend Response:", response?.data);
             navigate("/home");
         } catch (error) {
             const err = error?.response?.data?.message || "Something went wrong";

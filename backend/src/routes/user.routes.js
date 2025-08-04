@@ -12,6 +12,7 @@ import {
   getCurrentUser,
   updateAccountDetails,
   updateProfilePicture,
+  testUser
 } from "../controllers/user.controller.js";
 
 const router = Router();
@@ -22,10 +23,9 @@ router.post("/verify-email", verifyEmail);
 router.post("/login", loginUser);
 router.post("/refresh-token", refreshAccessToken);
 
+router.get("/test", testUser);
 
-router.get("/test", (req, res) => {
-  res.json({ working: true });
-});
+
 
 
 //protected routes

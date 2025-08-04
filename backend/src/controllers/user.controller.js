@@ -53,7 +53,7 @@ const registerUser = asyncHandler(async (req, res) => {
   user.emailVerificationTokenExpiry = Date.now() + expiryMs
   await user.save({ validateBeforeSave: false });
 
-  console.log(`Verification URL: http://localhost:5173/verify/${emailVerificationToken}`);
+  //console.log(`Verification URL: http://localhost:5173/verify/${emailVerificationToken}`);
 
   await sendVerificationEmail(user.email, emailVerificationToken);
 
@@ -67,7 +67,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
   const { token } = req.body;
   if (!token) throw new ApiError(400, "Verification token is required");
 
-  console.log("Received token from frontend:", req.body.token);
+  //console.log("Received token from frontend:", req.body.token);
 
   let decodedToken;
   try {
@@ -96,10 +96,10 @@ const verifyEmail = asyncHandler(async (req, res) => {
   user.emailVerificationTokenExpiry = undefined;
   await user.save({ validateBeforeSave: false });
 
-  // ✅ Generate Access Token
+  
   const accessToken = user.generateAccessToken(); // assuming this method exists on your user schema
 
-  // ✅ Set Cookie
+  
   res.cookie("accessToken", accessToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
@@ -117,8 +117,8 @@ const completeUserProfile = asyncHandler(async (req, res) => {
   const { username, password, bio } = req.body;
   const userId = req.user._id;
 
-  console.log("req.body =>", req.body);
-  console.log("req.files =>", req.files);
+  // console.log("req.body =>", req.body);
+  // console.log("req.files =>", req.files);
 
   if (!userId || !isValidObjectId(userId)) {
     throw new ApiError(404, "Wrong user ID");
@@ -141,12 +141,12 @@ const completeUserProfile = asyncHandler(async (req, res) => {
     throw new ApiError(400, "profilePicture is missing");
   }
 
-  console.log("Uploading file from path:", profilePictureLocalPath);
+  //console.log("Uploading file from path:", profilePictureLocalPath);
 
 
   const profilePicture = await uploadOnCloudinary(profilePictureLocalPath);
 
-  console.log("Cloudinary response:", profilePicture);
+  //console.log("Cloudinary response:", profilePicture);
 
   if (!profilePicture?.url || !profilePicture?.public_id) {
     throw new ApiError(400, "Failed to upload profile picture");
@@ -157,13 +157,16 @@ const completeUserProfile = asyncHandler(async (req, res) => {
     user.password = password;
     user.bio = bio.trim();
     user.profilePicture = {
-      url: profilePicture.secure_url,
+      url: profilePicture.url,
       public_id: profilePicture.public_id,
     };
   }
 
   await user.save();
   const updatedUser = await User.findById(userId).select("-password -refreshToken -emailVerificationToken -emailVerificationTokenExpiry");
+
+ // console.log("Updated user response =>", updatedUser);
+
 
   return res.status(200).json(new ApiResponse(200, updatedUser, "User profile completed successfully"));
 });
@@ -320,7 +323,7 @@ const updateProfilePicture = asyncHandler(async (req, res) => {
   }
 
   user.profilePicture = {
-    url: profilePicture.secure_url,
+    url: profilePicture.url,
     public_id: profilePicture.public_id,
   };
 
@@ -330,6 +333,15 @@ const updateProfilePicture = asyncHandler(async (req, res) => {
 
   return res.status(200).json(new ApiResponse(200, updatedUser, "Profile picture updated successfully"));
 });
+
+const testUser = asyncHandler(async (req,res) =>{
+  try {
+    console.log("Terminal is working")
+  } catch (error) {
+    console.log("some error occured during printing", error);
+  }
+  res.status(200).json({ message: "Test route hit successfully" });
+})
 
 export {
   registerUser,
@@ -342,5 +354,6 @@ export {
   getCurrentUser,
   updateAccountDetails,
   updateProfilePicture,
+  testUser
 };
  

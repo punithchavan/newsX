@@ -31,10 +31,18 @@ const completeProfile = async (formData) => {
   return response.data;
 };
 
+const getUser = async () => {
+  const response = await API.get("/users/me", {
+    withCredentials: true,
+  });
+  return response.data;
+};
+
 
 export { 
     loginUser,
     registerUser,
     verifyEmail,
-    completeProfile
+    completeProfile,
+    getUser
 }
