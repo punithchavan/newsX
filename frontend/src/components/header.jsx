@@ -30,7 +30,7 @@ const Header = () => {
     if(!user) return null;
 
     return (
-        <header className="flex items-center justify-between px-4 py-2 shadow-md bg-white sticky top-0 z-50">
+        <header className="flex items-center w-screen justify-between px-4 py-2 shadow-md bg-white sticky top-0 z-50">
             {/*pfp*/}
             <div className="relative">
                 <img

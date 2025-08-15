@@ -38,11 +38,20 @@ const getUser = async () => {
   return response.data;
 };
 
+const searchUsers = async(username) => {
+  const response = await API.get(`/users/search-user?username=${encodeURIComponent(username)}`, {
+    withCredentials: true
+  });
+  console.log("API response:", response.data);
+  return response.data.data;
+}
+
 
 export { 
     loginUser,
     registerUser,
     verifyEmail,
     completeProfile,
-    getUser
+    getUser,
+    searchUsers
 }

@@ -53,7 +53,7 @@ const registerUser = asyncHandler(async (req, res) => {
   user.emailVerificationTokenExpiry = Date.now() + expiryMs
   await user.save({ validateBeforeSave: false });
 
-  //console.log(`Verification URL: http://localhost:5173/verify/${emailVerificationToken}`);
+  console.log(`Verification URL: http://localhost:5173/verify/${emailVerificationToken}`);
 
   await sendVerificationEmail(user.email, emailVerificationToken);
 
@@ -67,7 +67,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
   const { token } = req.body;
   if (!token) throw new ApiError(400, "Verification token is required");
 
-  //console.log("Received token from frontend:", req.body.token);
+  console.log("Received token from frontend:", req.body.token);
 
   let decodedToken;
   try {
@@ -343,6 +343,21 @@ const testUser = asyncHandler(async (req,res) =>{
   res.status(200).json({ message: "Test route hit successfully" });
 })
 
+const searchUsers = asyncHandler(async (req,res) =>{
+  const { username } = req.query;
+  if(!username){
+    return res.status(400).json(new ApiResponse(400, null, "Username query is required"));
+  }
+
+  const users = await User.find({
+    username: {$regex: username, $options: "i"}
+  }).select("-password -refreshToken");
+
+  return res
+  .status(200)
+  .json(new ApiResponse(200, users, "Users fetched successfully"));
+})
+
 export {
   registerUser,
   verifyEmail,
@@ -354,6 +369,7 @@ export {
   getCurrentUser,
   updateAccountDetails,
   updateProfilePicture,
-  testUser
+  testUser,
+  searchUsers
 };
  

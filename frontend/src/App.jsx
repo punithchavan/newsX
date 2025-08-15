@@ -6,6 +6,7 @@ import { CheckEmailPage } from "./pages/CheckEmailPage";
 import { VerifyEmailPage } from "./pages/VerifyEmailPage";
 import { CompleteProfilePage } from "./pages/CompleteProfilePage";
 import { HomePage } from "./pages/HomePage";
+import { SearchUserPage } from "./pages/SearchUser";
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Route path="/check-email" element={<CheckEmailPage />}/>
       <Route path="/verify-email" element={<VerifyEmailPage />} />
       <Route path="/complete-profile" element={<CompleteProfilePage />} />
+      <Route path="/search-user" element={<SearchUserPage />} />
     </Routes>
   )
 }
