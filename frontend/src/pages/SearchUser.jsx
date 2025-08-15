@@ -73,7 +73,7 @@ const SearchUserPage = () =>{
                     {results.map((user) => (
                         <li 
                           key = {user._id}
-                          className="p-3 flex items-center gap-3 bg-gray-50"
+                          className="p-3 flex items-center gap-3 bg-gray-50 cursor-pointer shadow"
                         >
                             <img
                               src={user.profilePicture?.url || "/default-avatar.png"}
